@@ -30,7 +30,9 @@ class iCLW extends WP_Widget {
 		<input type="number" min="1" max="20" class="widefat" style="background:#fff;width:40px;text-align:center;" id="<?php echo $this->get_field_id('numB');?>" name="<?php echo $this->get_field_name('numB');?>" value="<?php echo !empty($numB) ? $numB:1;?>"/>
 		<br><i>Hit Save After Changing The Number. <b>Do Not Decrease The Number of Links</b>, If Does So, It Will Remove Some Links From The End Of The Array Permanently.</i>
 		</p>
-		<?php for($i=0;$i<$numB;$i++)
+		<?php 
+		$externalLinl = 'externalLinl';
+		for($i=0;$i<$numB;$i++)
 		{
 		$count=$i+1;
 		$target = 'iT'.$count;
@@ -54,8 +56,13 @@ class iCLW extends WP_Widget {
 		<label for="<?php echo $this->get_field_id($name);?>">Link Title: </label>
 		<input class="widefat" style="background:#fff;" id="<?php echo $this->get_field_id($name);?>" name="<?php echo $this->get_field_name($name);?>" value="<?php if(isset($$name)) echo esc_attr($$name);?>"/>
 		</p>
+     
 		<?php
 		}?>
+        <p>
+		<label for="<?php echo $this->get_field_id('allLink');?>">All View Link: </label>
+		<input class="widefat" style="background:#fff;" id="<?php echo $this->get_field_id('allLink');?>" name="<?php echo $this->get_field_name('allLink');?>" value="<?php if(isset($allLink)) echo esc_attr($allLink);?>"/>
+		</p>
 		<?php
 	}
 	
@@ -67,7 +74,7 @@ class iCLW extends WP_Widget {
 		$title = apply_filters('widget_title',$title);
 		
 		echo $before_widget;
-		echo $before_title . $title . $after_title;
+		echo $before_title .'<div class="link-list-block block"><h4>'.$title.'</h4>'. $after_title;
 		echo '<ul>';
 		for($i=0;$i<$numB;$i++)
 		{
@@ -85,7 +92,7 @@ class iCLW extends WP_Widget {
 			}
 		echo '<li><a '.$tar.'href="'.esc_attr($$link).'">'.esc_attr($$name).'</a></li>';
 		}
-		echo '</ul>';
+		echo '</ul><a href="'.$allLink.'" class="view-all">view all &rsaquo;</a></div>';
 		echo $after_widget;
 	
 	}
