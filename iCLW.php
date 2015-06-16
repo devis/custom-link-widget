@@ -5,7 +5,7 @@ Plugin URI: http://ipankaj.net/custom-link-widget-plugin
 Description: This Plugin Helps You To Insert Links As Widget. You Need To Insert Link and Link Name, It Will Convert Them To Hyperlink Automatically. After Installation & Activation, Navigate to Appearence -> Widgets, There Should A Widget Called "Link Widget By Pankaj Biswas", Drag And Add That.
 Author: Pankaj Biswas
 Author URI: http://ipankaj.net
-Version: 1.1.1
+Version: 1.2.0
 */
 class iCLW extends WP_Widget {
 
@@ -16,7 +16,7 @@ class iCLW extends WP_Widget {
 		);
 		parent::__construct('iCLW','',$options);
 	}
-	
+
 	//Taking Input From User
 	public function form($instance){
 		extract($instance);
@@ -30,7 +30,7 @@ class iCLW extends WP_Widget {
 		<input type="number" min="1" max="20" class="widefat" style="background:#fff;width:40px;text-align:center;" id="<?php echo $this->get_field_id('numB');?>" name="<?php echo $this->get_field_name('numB');?>" value="<?php echo !empty($numB) ? $numB:1;?>"/>
 		<br><i>Hit Save After Changing The Number. <b>Do Not Decrease The Number of Links</b>, If Does So, It Will Remove Some Links From The End Of The Array Permanently.</i>
 		</p>
-		<?php 
+		<?php
 		$externalLinl = 'externalLinl';
 		for($i=0;$i<$numB;$i++)
 		{
@@ -56,7 +56,7 @@ class iCLW extends WP_Widget {
 		<label for="<?php echo $this->get_field_id($name);?>">Link Title: </label>
 		<input class="widefat" style="background:#fff;" id="<?php echo $this->get_field_id($name);?>" name="<?php echo $this->get_field_name($name);?>" value="<?php if(isset($$name)) echo esc_attr($$name);?>"/>
 		</p>
-     
+
 		<?php
 		}?>
         <p>
@@ -65,14 +65,14 @@ class iCLW extends WP_Widget {
 		</p>
 		<?php
 	}
-	
+
 	//Displaying The Data To Widget
 
 	public function widget($args,$instance){
 		extract($args);
 		extract($instance);
 		$title = apply_filters('widget_title',$title);
-		
+
 		echo $before_widget;
 		echo $before_title .'<div class="link-list-block block"><h4>'.$title.'</h4>'. $after_title;
 		echo '<ul>';
@@ -92,9 +92,9 @@ class iCLW extends WP_Widget {
 			}
 		echo '<li><a '.$tar.'href="'.esc_attr($$link).'">'.esc_attr($$name).'</a></li>';
 		}
-		echo '</ul><a href="'.$allLink.'" class="view-all">view all &rsaquo;</a></div>';
+		echo '</ul><a href="'.$allLink.'" class="view-all">view all <span class="screen-reader-text sr-only">'.$title.'</span> &rsaquo;</a></div>';
 		echo $after_widget;
-	
+
 	}
 }
 add_action('widgets_init','register_iCLW');
